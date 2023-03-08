@@ -20,10 +20,10 @@ aday = datetime.timedelta(days=1)
 dir_list = Path(dir_name).glob('*.csv')
 
 for account in dir_list:
+    count = 0
     thedate = Jan1_2022
     print(account.stem)
 
-    
     while (thedate <= Dec31_2022):
         with open(account, 'r') as f:
             csvFile = csv.reader(f)
@@ -36,9 +36,14 @@ for account in dir_list:
                     print(str(thedate), "<----- Current date")
                     print(row[0], "<----- Date of new balance")
                     print("Match found!!!!")
+                    count += 1
                     print()
 
         thedate += aday
+
+    print("Total matches: ", count)
+    print()
+
 
 
         
