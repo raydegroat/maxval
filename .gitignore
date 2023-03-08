@@ -133,3 +133,4 @@ dmypy.json
 .DS_Store
 2022_balance/
 account_history/
+test.py
