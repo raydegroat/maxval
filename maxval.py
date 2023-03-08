@@ -9,41 +9,37 @@ import os
 
 # Directory where bank csv files are stored
 dir_name = 'account_history'
-days = []
 
 # Using datetime to make a list of days in the year
 Jan1_2022 = datetime.date(2022, 1, 1 )
 Dec31_2022 = datetime.date(2022, 12, 31)
 aday = datetime.timedelta(days=1)
+taxYear2022 = []
+thedate = Jan1_2022
 
-# Use Path to get files ending in .csv
-dir_list = Path(dir_name).glob('*.csv')
+while (thedate <= Dec31_2022):
+    taxYear2022.append(str(thedate))
+    thedate += aday
 
-for account in dir_list:
-    count = 0
-    thedate = Jan1_2022
-    print(account.stem)
+daily_reports = []
 
-    while (thedate <= Dec31_2022):
-        with open(account, 'r') as f:
+bal = 0
+for date in taxYear2022:
+    daily_report = dict(date = date, accounts = [])
+    dir_list = Path(dir_name).glob('*.csv')
+    for file in dir_list:
+        acc_name = file.stem
+        with open(file, 'r') as f:
             csvFile = csv.reader(f)
-
-            # print(thedate)
             for row in reversed(list(csvFile)):
-                # print(str(thedate), "<----- Current date")
-                # print(row[0], "<----- Date of new balance")
-                if row[0] == str(thedate):
-                    print(str(thedate), "<----- Current date")
-                    print(row[0], "<----- Date of new balance")
-                    print("Match found!!!!")
-                    count += 1
-                    print()
+                if row[0] == date:
+                    bal = row[2]
+            daily_report['accounts'] += [{'account' : acc_name, 'balance' : bal}]
+        daily_reports.append(daily_report)
+count = 0
 
-        thedate += aday
-
-    print("Total matches: ", count)
-    print()
-
-
-
+for i in daily_reports:
+    print(i)
+    print(count)
+    count += 1                
         
