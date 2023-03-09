@@ -27,17 +27,29 @@ for date in taxYear2022:
     daily_report = dict(date = date, accounts = [])
     daily_reports.append(daily_report)
 
-# Getting a listing of all .csv files. The name of each file fill be used as the account name
+# Getting a listing of all .csv files. Stoing the generated list to a more permanent list[]
 dir_list = Path(dir_name).glob('*.csv')
+file_list = []
+for file in dir_list:
+    file_list.append(file)
 
-# Adding account names to the dictionaies with an initial balance of None
-for acc_name in dir_list:
-    print(acc_name.name)
+# Using the file name to name the accounts and assiging an initial balance of None
+for acc_name in file_list:
     for report in daily_reports:
-        report['accounts'] += [{'account' : acc_name.name, 'balance' : None}]
+        report['accounts'] += [{'account' : acc_name.stem, 'balance' : None}]
 
-# Testing...
-for report in daily_reports:
-    if report['date'] == '2022-01-20':
-        print(report)
-        print(report.items())
+# Getting list of .csv files AGAIN because... reasons? Path returns type generater?
+
+# Reading files. Comparing dates and getting balances.
+for acc_name in file_list:
+    print(acc_name.stem)
+    for report in daily_reports:
+        with open(acc_name, 'r') as f:
+            csvFile = csv.reader(f)
+            for row in reversed(list(csvFile)):
+                if report['date'] == row[0]:
+                    print(report.values())
+                    print(row[2])
+                    
+          
+        
