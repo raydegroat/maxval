@@ -1,10 +1,21 @@
 # maxval
-About: Determines the maximum value or “net worth” of a group of bank accounts for a given tax year.
+About: Determines the maximum value of a group of bank accounts for a given tax year.
 
 Status: This software is still under development and is in no way ready for use.
 
-Explanation: The inspiration for this software came about because of IRS Form 8938 "Statement of Specified Foreign Financial Assets” which requires US citizens to report the total maximum value of all their foreign bank accounts during the tax year. This can be tricky because simply taking the sum of the highest balance for each account during the year doesn’t give the actual combined value or net worth of all the accounts.
+Explanation: Adds the balance of all accounts for tax year 2022 to get the total balance for each day. This is the "total daily balance". There are 365 total daily balances, one total balance for each day of the year. The highest of these daily balances is then reported. This is the maximum value of all accounts for that year.
 
-For example: Let’s say you have bank account A with $400 and bank account B with $400. Now suppose you transfer $200 from account A and another $200 from account B into newly opened bank account C. The high balance for each account added together is $1200. Each of account had a high balance of $400 during the year. $400 x 3 = $1200. Yet the total maximum value, the net worth of the accounts is still only $800.
+Background: The inspiration for this software came about because of IRS Form 8938 "Statement of Specified Foreign Financial Assets” which requires US citizens to report the total maximum value of all their foreign bank accounts during the tax year. Simply taking the sum of the highest balance for each account during the year doesn’t give the actual combined value or net worth of all the accounts. Suppose you often transfer money between your savings and your checking. Or suppose you closed an account with $1000 and opened a new account in the same year with the same $1000. Simply adding up the high balance from each account during the year will count that $1000 twice.
 
-Eventually this software will read in multiple balance sheets which give account balances at various days over the course of a year.
+Usage: Currently there is no front-end for this program. The program requires input from .csv files (comma separated value) and should be stored in a directory named ‘account_history’. 
+
+The file format is date, amount, balance, where ‘amount’ is the transaction amount plus or minus and ‘balance’ is the account balance after the transaction. This would be 3 columns in a spreadsheet. The middle column isn’t used right now so the value doesn’t matter but there must be 3 columns. Column 1 is for the date and column 3 should contain the balance.
+
+Date should be in the format yyyy-mm-dd and should be listed in reverse chronological order.
+
+2022-02-25, 45000, 102792
+2022-02-25, -150, 57792
+2022-01-27 -35, 57942
+2022-01-01, 57977, 57977
+
+There must be a starting balance for January 1, 2022. Otherwise it will be assumed to be zero until the first transaction date is found.
