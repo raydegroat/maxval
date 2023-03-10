@@ -7,6 +7,10 @@ from pathlib import Path
 import csv
 import os
 
+# Create a new output file on each run
+f = open('daily_totals.csv', 'w')
+f.close
+
 # Directory where bank csv files are stored
 dir_name = 'account_history'
 
@@ -40,8 +44,9 @@ for acc_name in file_list:
 
 # Getting list of .csv files AGAIN because... reasons? Path returns type generater?
 
+
+# Reading files, comparing dates and setting balances.
 idx = 0
-# Reading files. Comparing dates and getting balances.
 for acc_name in file_list:
     bal = 0
     print(acc_name.stem)
@@ -50,23 +55,50 @@ for acc_name in file_list:
             csvFile = csv.reader(f)
             for row in reversed(list(csvFile)):
                 if report['date'] == row[0]:
-                    print(row)
+                    # print(row)
                     bal = row[2]
-                    print(report)
+                    # print(report)
                     report['accounts'][idx]['balance'] = bal
-                    print(report)
+                    # print(report)
                 else:
                     report['accounts'][idx]['balance'] = bal
     idx += 1
-newbalance = 0
+
+# Get the total number of accounts for indexing - subtract one for zero indexing
+num_accounts = len(report['accounts'])
+
 daily_totals = []
 for report in daily_reports:
-    print(report['date'], report['accounts'][0]['account'], report['accounts'][0]['balance'],
-          report['accounts'][1]['account'], report['accounts'][1]['balance'])
-    daily_total = int(report['accounts'][0]['balance']) + int(report['accounts'][1]['balance'])
+    daily_total = 0
+    print(report['date'])
+    for idx in range(len(report['accounts'])):
+        print(report['accounts'][idx]['account'], report['accounts'][idx]['balance'])
+        daily_total += int(report['accounts'][idx]['balance'])
+    print("-------------------")
     print("Daily total: ", str(daily_total))
     daily_totals.append(daily_total)
     print()
 
 maxVal = max(daily_totals)
-print("The maximum daily total is: ", maxVal)
+print("There are", num_accounts, "accounts.")
+print("The maximum daily amount of all account total is: ", maxVal)
+
+with open('daily_totals.csv', 'a') as f:
+    f.write('Account name: ')
+    f.write(',')
+    for idx in range(len(report['accounts'])):
+        f.write(report['accounts'][idx]['account'])
+        f.write(',')
+    f.write('Daily total')
+    f.write('\n')
+
+    for report in daily_reports:
+        daily_total = 0
+        f.write(report['date'])
+        f.write(',')
+        for idx in range(len(report['accounts'])):
+          daily_total += int(report['accounts'][idx]['balance'])
+          f.write(report['accounts'][idx]['balance'])
+          f.write(',')
+        f.write(str(daily_total))
+        f.write('\n')
