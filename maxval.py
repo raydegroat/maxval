@@ -40,16 +40,30 @@ for acc_name in file_list:
 
 # Getting list of .csv files AGAIN because... reasons? Path returns type generater?
 
+count = 0
 # Reading files. Comparing dates and getting balances.
 for acc_name in file_list:
+    bal = 0
     print(acc_name.stem)
     for report in daily_reports:
         with open(acc_name, 'r') as f:
             csvFile = csv.reader(f)
             for row in reversed(list(csvFile)):
                 if report['date'] == row[0]:
-                    print(report.values())
-                    print(row[2])
+                    print(row)
+                    bal = row[2]
+                    # print(bal)
+                    print(report)
+                    # print(report['accounts'][0]['balance'])
+                    report['accounts'][count]['balance'] = bal
+                    print(report)
+                    # print(report['accounts'][0]['balance'])
+                    # print(len(report['accounts']))
+                    # print(report.values())
+                    # print(row[2]
+                else:
+                    report['accounts'][count]['balance'] = bal
+    count += 1
                     
           
         
