@@ -40,7 +40,7 @@ for acc_name in file_list:
 
 # Getting list of .csv files AGAIN because... reasons? Path returns type generater?
 
-count = 0
+idx = 0
 # Reading files. Comparing dates and getting balances.
 for acc_name in file_list:
     bal = 0
@@ -52,29 +52,21 @@ for acc_name in file_list:
                 if report['date'] == row[0]:
                     print(row)
                     bal = row[2]
-                    # print(bal)
                     print(report)
-                    # print(report['accounts'][0]['balance'])
-                    report['accounts'][count]['balance'] = bal
+                    report['accounts'][idx]['balance'] = bal
                     print(report)
-                    # print(report['accounts'][0]['balance'])
-                    # print(len(report['accounts']))
-                    # print(report.values())
-                    # print(row[2]
                 else:
-                    report['accounts'][count]['balance'] = bal
-    count += 1
+                    report['accounts'][idx]['balance'] = bal
+    idx += 1
 newbalance = 0
 daily_totals = []
 for report in daily_reports:
-    # print(report)
     print(report['date'], report['accounts'][0]['account'], report['accounts'][0]['balance'],
           report['accounts'][1]['account'], report['accounts'][1]['balance'])
     daily_total = int(report['accounts'][0]['balance']) + int(report['accounts'][1]['balance'])
     print("Daily total: ", str(daily_total))
     daily_totals.append(daily_total)
-    print(type(daily_total))
     print()
 
 maxVal = max(daily_totals)
-print("The maximum daily tota is: ", maxVal)
+print("The maximum daily total is: ", maxVal)
