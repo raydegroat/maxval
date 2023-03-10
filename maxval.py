@@ -1,7 +1,6 @@
 #! /usr/bin/env python3
 # Maxval accounts value evaluator - Raymond de Groat, 2023 https://github.com/raydegroat
 
-import pandas as pd
 import datetime
 from pathlib import Path
 import csv
