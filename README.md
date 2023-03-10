@@ -21,4 +21,4 @@ Date should be in the format yyyy-mm-dd and entries should be listed in reverse 
 
 2022-01-01, 57977, 57977
 
-There must be a starting balance for January 1, 2022. Otherwise it will be assumed to be zero until the first transaction date is found.
+There must be a starting balance for January 1, 2022. Otherwise it will be assumed to be zero until the first transaction date is found. The output should be a file named daily_totals.csv which can be opened as a spreadsheet. 
