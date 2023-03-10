@@ -13,9 +13,9 @@ The file format is date, amount, balance, where ‘amount’ is the transaction 
 
 Date should be in the format yyyy-mm-dd and should be listed in reverse chronological order.
 
-2022-02-25, 45000, 102792
-2022-02-25, -150, 57792
-2022-01-27 -35, 57942
-2022-01-01, 57977, 57977
+2022-02-25, 45000, 102792\n
+2022-02-25, -150, 57792\n
+2022-01-27 -35, 57942\n
+2022-01-01, 57977, 57977\n
 
 There must be a starting balance for January 1, 2022. Otherwise it will be assumed to be zero until the first transaction date is found.
