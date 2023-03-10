@@ -11,11 +11,14 @@ Usage: Currently there is no front-end for this program. The program requires in
 
 The file format is date, amount, balance, where ‘amount’ is the transaction amount plus or minus and ‘balance’ is the account balance after the transaction. This would be 3 columns in a spreadsheet. The middle column isn’t used right now so the value doesn’t matter but there must be 3 columns. Column 1 is for the date and column 3 should contain the balance.
 
-Date should be in the format yyyy-mm-dd and should be listed in reverse chronological order.
+Date should be in the format yyyy-mm-dd and entries should be listed in reverse chronological order, one per row.
 
 2022-02-25, 45000, 102792
+
 2022-02-25, -150, 57792
+
 2022-01-27 -35, 57942
+
 2022-01-01, 57977, 57977
 
 There must be a starting balance for January 1, 2022. Otherwise it will be assumed to be zero until the first transaction date is found.
