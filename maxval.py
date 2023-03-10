@@ -5,7 +5,6 @@ import pandas as pd
 import datetime
 from pathlib import Path
 import csv
-import os
 
 # Create a new output file on each run
 f = open('daily_totals.csv', 'w')
@@ -14,7 +13,7 @@ f.close
 # Directory where bank csv files are stored
 dir_name = 'account_history'
 
-# Using datetime to make a list of days in the year
+# Using datetime to make a list of days in the 2022 tax year
 Jan1_2022 = datetime.date(2022, 1, 1 )
 Dec31_2022 = datetime.date(2022, 12, 31)
 aday = datetime.timedelta(days=1)
@@ -31,7 +30,7 @@ for date in taxYear2022:
     daily_report = dict(date = date, accounts = [])
     daily_reports.append(daily_report)
 
-# Getting a listing of all .csv files. Stoing the generated list to a more permanent list[]
+# Getting a listing of all .csv files in directory dir_name and the generated list to a more permanent list[]
 dir_list = Path(dir_name).glob('*.csv')
 file_list = []
 for file in dir_list:
@@ -41,8 +40,6 @@ for file in dir_list:
 for acc_name in file_list:
     for report in daily_reports:
         report['accounts'] += [{'account' : acc_name.stem, 'balance' : None}]
-
-# Getting list of .csv files AGAIN because... reasons? Path returns type generater?
 
 
 # Reading files, comparing dates and setting balances.
@@ -64,9 +61,10 @@ for acc_name in file_list:
                     report['accounts'][idx]['balance'] = bal
     idx += 1
 
-# Get the total number of accounts for indexing - subtract one for zero indexing
+# Get the total number of accounts for user reality check
 num_accounts = len(report['accounts'])
 
+# Read daily_totals, calcluate totol daily totals and output to the screen
 daily_totals = []
 for report in daily_reports:
     daily_total = 0
@@ -79,10 +77,12 @@ for report in daily_reports:
     daily_totals.append(daily_total)
     print()
 
+# Display the number of accounts and the highest daily value of all accounts
 maxVal = max(daily_totals)
 print("There are", num_accounts, "accounts.")
 print("The maximum daily amount of all account total is: ", maxVal)
 
+# Write the account names with dates and balances to a .csv file
 with open('daily_totals.csv', 'a') as f:
     f.write('Account name: ')
     f.write(',')
