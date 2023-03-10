@@ -64,6 +64,17 @@ for acc_name in file_list:
                 else:
                     report['accounts'][count]['balance'] = bal
     count += 1
-                    
-          
-        
+newbalance = 0
+daily_totals = []
+for report in daily_reports:
+    # print(report)
+    print(report['date'], report['accounts'][0]['account'], report['accounts'][0]['balance'],
+          report['accounts'][1]['account'], report['accounts'][1]['balance'])
+    daily_total = int(report['accounts'][0]['balance']) + int(report['accounts'][1]['balance'])
+    print("Daily total: ", str(daily_total))
+    daily_totals.append(daily_total)
+    print(type(daily_total))
+    print()
+
+maxVal = max(daily_totals)
+print("The maximum daily tota is: ", maxVal)
