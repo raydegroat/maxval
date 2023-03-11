@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 # Maxval accounts value evaluator - Raymond de Groat, 2023 https://github.com/raydegroat
 
+import sys
 import datetime
 from pathlib import Path
 import csv
@@ -50,12 +51,9 @@ for acc_name in file_list:
         with open(acc_name, 'r') as f:
             csvFile = csv.reader(f)
             for row in reversed(list(csvFile)):
-                if report['date'] == row[0]:
-                    # print(row)
-                    bal = row[2]
-                    # print(report)
+                if report['date'] == row[0].replace(" ", ""):
+                    bal = row[2].replace(" ", "")
                     report['accounts'][idx]['balance'] = bal
-                    # print(report)
                 else:
                     report['accounts'][idx]['balance'] = bal
     idx += 1
@@ -97,7 +95,11 @@ with open('daily_totals.csv', 'a') as f:
         f.write(',')
         for idx in range(len(report['accounts'])):
           daily_total += int(report['accounts'][idx]['balance'])
-          f.write(report['accounts'][idx]['balance'])
+          f.write(str(report['accounts'][idx]['balance']))
           f.write(',')
         f.write(str(daily_total))
         f.write('\n')
+
+# print("The following accounts had no starting balance for January 1, 2024 and were skipped.")
+# for i in no_start_bal:
+#     print(i)
