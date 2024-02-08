@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # Maxval accounts value evaluator - Raymond de Groat, 2023 https://github.com/raydegroat
 
-import sys
+# import sys
 import datetime
 from pathlib import Path
 import csv
@@ -13,20 +13,20 @@ f.close
 # Directory where bank csv files are stored
 dir_name = 'account_history'
 
-# Using datetime to make a list of days in the 2022 tax year
-Jan1_2022 = datetime.date(2022, 1, 1 )
-Dec31_2022 = datetime.date(2022, 12, 31)
+# Using datetime to make a list of days in the 2023 tax year
+Jan1_2023 = datetime.date(2023, 1, 1 )
+Dec31_2023 = datetime.date(2023, 12, 31)
 aday = datetime.timedelta(days=1)
-thedate = Jan1_2022
-taxYear2022 = []
+thedate = Jan1_2023
+taxYear2023 = []
 
-while (thedate <= Dec31_2022):
-    taxYear2022.append(str(thedate))
+while (thedate <= Dec31_2023):
+    taxYear2023.append(str(thedate))
     thedate += aday
 
 # Creating a list of dictionaries to store account data for each day of the year
 daily_reports = []
-for date in taxYear2022:
+for date in taxYear2023:
     daily_report = dict(date = date, accounts = [])
     daily_reports.append(daily_report)
 
