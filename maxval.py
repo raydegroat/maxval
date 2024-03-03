@@ -13,20 +13,22 @@ f.close
 # Directory where bank csv files are stored
 dir_name = 'account_history'
 
-# Using datetime to make a list of days in the 2023 tax year
-Jan1_2023 = datetime.date(2023, 1, 1 )
-Dec31_2023 = datetime.date(2023, 12, 31)
-aday = datetime.timedelta(days=1)
-thedate = Jan1_2023
-taxYear2023 = []
+TAX_YEAR = 2022
 
-while (thedate <= Dec31_2023):
-    taxYear2023.append(str(thedate))
+# Using datetime to make a list of days in the TAX_YEAR
+JAN1_TAX_YEAR = datetime.date(TAX_YEAR, 1, 1 )
+DEC31_TAX_YEAR = datetime.date(TAX_YEAR, 12, 31)
+aday = datetime.timedelta(days=1)
+thedate = JAN1_TAX_YEAR
+TAX_YEAR = []
+
+while (thedate <= DEC31_TAX_YEAR):
+    TAX_YEAR.append(str(thedate))
     thedate += aday
 
 # Creating a list of dictionaries to store account data for each day of the year
 daily_reports = []
-for date in taxYear2023:
+for date in TAX_YEAR:
     daily_report = dict(date = date, accounts = [])
     daily_reports.append(daily_report)
 
