@@ -13,7 +13,7 @@ f.close
 # Directory where bank csv files are stored
 dir_name = '../account_history'
 
-TAX_YEAR = 2022
+TAX_YEAR = 2023
 
 # Using datetime to make a list of days in the TAX_YEAR
 JAN1_TAX_YEAR = datetime.date(TAX_YEAR, 1, 1 )
@@ -101,7 +101,3 @@ with open('daily_totals.csv', 'a') as f:
           f.write(',')
         f.write(str(daily_total))
         f.write('\n')
-
-# print("The following accounts had no starting balance for January 1, 2024 and were skipped.")
-# for i in no_start_bal:
-#     print(i)
