@@ -11,7 +11,7 @@ f = open('daily_totals.csv', 'w')
 f.close
 
 # Directory where bank csv files are stored
-dir_name = 'account_history'
+dir_name = '../account_history'
 
 TAX_YEAR = 2022
 
