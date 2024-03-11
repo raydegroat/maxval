@@ -134,5 +134,7 @@ dmypy.json
 2022_balance/
 account_history/
 test.py
+2test.py
 daily_totals.csv
+2test_totals.csv
 test_git/

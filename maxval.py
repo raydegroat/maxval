@@ -11,7 +11,7 @@ f = open('daily_totals.csv', 'w')
 f.close
 
 # Directory where bank csv files are stored
-dir_name = '../account_history'
+dir_name = '../account_history_2023'
 
 TAX_YEAR = 2023
 
@@ -21,6 +21,8 @@ DEC31_TAX_YEAR = datetime.date(TAX_YEAR, 12, 31)
 aday = datetime.timedelta(days=1)
 thedate = JAN1_TAX_YEAR
 TAX_YEAR = []
+
+report = []
 
 while (thedate <= DEC31_TAX_YEAR):
     TAX_YEAR.append(str(thedate))
@@ -37,6 +39,10 @@ dir_list = Path(dir_name).glob('*.csv')
 file_list = []
 for file in dir_list:
     file_list.append(file)
+
+if len(file_list) == 0:
+    print("\nNo csv files to process. Exiting...\n")
+    exit(1)
 
 # Using the file name to name the accounts and assiging an initial balance of None
 for acc_name in file_list:
